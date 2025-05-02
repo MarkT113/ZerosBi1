@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "506356825617",
+    "project_id": "zerosbi1",
+    "storage_bucket": "zerosbi1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506356825617:android:a0d9a7ada9cb82fa643bb0",
+        "android_client_info": {
+          "package_name": "com.example.grad_proj_zerosbi1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "506356825617-ilef9u2n71fvidloi7pvijgmeqcec86a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEEQ_pAgH0QYPMZdQ3eze5OJYfjmt8X3k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "506356825617-ilef9u2n71fvidloi7pvijgmeqcec86a.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "506356825617-3nq9jsj1cqudrlpjan85o56ppek53aos.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.gradProjZerosbi1"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506356825617:android:5320ca3f93204c51643bb0",
+        "android_client_info": {
+          "package_name": "com.example.zerosbi1_grad_proj"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "506356825617-ilef9u2n71fvidloi7pvijgmeqcec86a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEEQ_pAgH0QYPMZdQ3eze5OJYfjmt8X3k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "506356825617-ilef9u2n71fvidloi7pvijgmeqcec86a.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "506356825617-3nq9jsj1cqudrlpjan85o56ppek53aos.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.gradProjZerosbi1"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
