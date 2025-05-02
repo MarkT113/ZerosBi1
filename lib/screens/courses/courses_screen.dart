@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import '../../models/course.dart';
 import '../../data/courses_data.dart';
 import 'lesson_screen.dart';
+import 'package:provider/provider.dart';
+import '../../sorting_game/screens/game_screen.dart';
+import '../../sorting_game/providers/game_provider.dart';
+import '../../condition_catcher_game/screens/condition_catcher_screen.dart';
 
 class CoursesScreen extends StatelessWidget {
   const CoursesScreen({super.key});
@@ -108,7 +112,8 @@ class CourseCard extends StatelessWidget {
                   LinearProgressIndicator(
                     value: course.progress,
                     backgroundColor: Colors.grey[200],
-                    valueColor: AlwaysStoppedAnimation<Color>(course.primaryColor),
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(course.primaryColor),
                   ),
                   const SizedBox(height: 8),
                   Text(
@@ -155,19 +160,104 @@ class CourseTopicsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Check which course this is to conditionally add buttons
+    final bool isDsaCourse = course.id == 'dsa101';
+    final bool isProgCourse = course.id == 'prog101';
+
+    // Determine how many extra items (buttons) to add
+    final int extraItems = (isDsaCourse ? 1 : 0) + (isProgCourse ? 1 : 0);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(course.title),
         elevation: 0,
       ),
       body: SafeArea(
-        child: ListView.builder(
-          padding: const EdgeInsets.all(16),
-          itemCount: course.topics.length,
-          itemBuilder: (context, index) {
-            final topic = course.topics[index];
-            return TopicExpansionTile(topic: topic);
-          },
+        child: Column(
+          // Use Column if adding items below ListView
+          children: [
+            Expanded(
+              // Make ListView take available space
+              child: ListView.builder(
+                padding: const EdgeInsets.all(16),
+                itemCount: course.topics.length +
+                    extraItems, // Add space for button(s)
+                itemBuilder: (context, index) {
+                  // Check if the index is beyond the topics count
+                  if (index >= course.topics.length) {
+                    // --- Build the Game Buttons ---
+                    // This logic assumes only ONE game button per course page.
+                    // If multiple games could be linked, the logic would need adjustment.
+
+                    if (isDsaCourse) {
+                      // --- Build Sorting Game Button ---
+                      return Padding(
+                        padding: const EdgeInsets.only(
+                            top: 24.0, left: 16, right: 16, bottom: 16),
+                        child: ElevatedButton.icon(
+                          icon: const Icon(Icons.sort), // Sorting icon
+                          label: const Text('Play Sorting Game'),
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            textStyle: const TextStyle(fontSize: 16),
+                            backgroundColor:
+                                course.primaryColor, // Use course color
+                            foregroundColor: Colors.white,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                // Sorting game needs its provider provided here
+                                builder: (_) => ChangeNotifierProvider(
+                                  create: (context) => GameProvider(),
+                                  child: const GameScreen(),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    } else if (isProgCourse) {
+                      // --- Build Condition Catcher Button ---
+                      return Padding(
+                        padding: const EdgeInsets.only(
+                            top: 24.0, left: 16, right: 16, bottom: 16),
+                        child: ElevatedButton.icon(
+                          icon: const Icon(Icons
+                              .touch_app_outlined), // Condition catcher icon
+                          label: const Text('Play Condition Catcher'),
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            textStyle: const TextStyle(fontSize: 16),
+                            backgroundColor:
+                                course.primaryColor, // Use course color
+                            foregroundColor: Colors.white,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                // Condition Catcher screen provides its own provider internally
+                                builder: (_) => const ConditionCatcherScreen(),
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    } else {
+                      // Should not happen if extraItems calculation is correct
+                      return const SizedBox.shrink();
+                    }
+                  } else {
+                    // --- Build Topic Tile ---
+                    final topic = course.topics[index];
+                    return TopicExpansionTile(topic: topic);
+                  }
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -219,4 +309,4 @@ class TopicExpansionTile extends StatelessWidget {
       ),
     );
   }
-} 
+}
